@@ -4,25 +4,26 @@
 #
 version: 2
 jobs:
-  build:
+  tests:
     docker:
-      # specify the version you desire here
       - image: circleci/android:api-25-alpha
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
     working_directory: ~/repo
-
     environment:
-      # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
       TERM: dumb
-
     steps:
       - checkout
+      - run:
+         name: run tests
+         command: ./gradlew tests
+  build:
+    docker:
+      - image: circleci/android:api-25-alpha
+    working_directory: ~/repo
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+    steps:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "build.gradle" }}
 #      - run:
@@ -36,9 +37,13 @@ jobs:
       - run:
           name: run build
           command: ./gradlew build
-      - run: ls app/build/outputs/apk/release
+      - run: 
+                  
+          ls app/build/outputs/apk/release
       - store_artifacts:
           path: app/build/reports
           destination: reports
       - store_artifacts:
           path: app/build/outputs/apk/release
+
+    
