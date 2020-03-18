@@ -39,7 +39,7 @@ jobs:
       - run:
           name: generate unsigned apk
           command: ./gradlew assemble
-      - run: ls build/apk
+      - run: ls build
       - store_artifacts:
           path: app/build/reports
           destination: reports
