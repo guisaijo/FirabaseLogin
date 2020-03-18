@@ -15,7 +15,7 @@ jobs:
       - checkout
       - run:
          name: run tests
-         command: ./gradlew tests
+         command: ./gradlew test
 
   build:
     docker:
