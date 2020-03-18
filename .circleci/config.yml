@@ -33,6 +33,9 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
+          name: accept licenses
+          command: yes | sdkmanager --licenses
+      - run:
           name: run build
           command: ./gradlew build
       - store_artifacts:
