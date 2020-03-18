@@ -42,7 +42,7 @@ jobs:
     steps:
       - checkout 
 
-     - run:
+      - run:
           name: Acceptance of license agreements
           command: yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses || if [ $? -ne '141' ]; then exit $?; fi;
 
