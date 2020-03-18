@@ -24,6 +24,7 @@ jobs:
     steps:
       - checkout
       - run: cd Login\ Provider
+      - run: ls
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "build.gradle" }}
 #      - run:
