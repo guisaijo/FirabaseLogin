@@ -26,9 +26,6 @@ jobs:
     steps:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "build.gradle" }}
-#      - run:
-#         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this. 
-#         command: sudo chmod +x ./gradlew
       - save_cache:
           paths:
             - ~/.gradle
@@ -46,4 +43,8 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/release
 
-    
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test
