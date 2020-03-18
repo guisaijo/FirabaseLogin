@@ -46,8 +46,10 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # run tests!
-      - run: |
-        pwd
-        cd Login\ Provider
-        pwd
-        gradle test
+      - run:
+          name: run tests
+          command: |
+            pwd
+            cd Login\ Provider
+            pwd
+            gradle test
