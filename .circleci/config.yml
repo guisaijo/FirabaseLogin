@@ -23,33 +23,24 @@ jobs:
 
     steps:
       - checkout
-      - run:
-          name: List directories
-          command: |
-              ls -latr
-              cd Login\ Provider
-              ls -latr
-              pwd
-              
-      # Download and cache dependencies
+      - run: cd Login\ Provider
       - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: gradle dependencies
-
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "build.gradle" }}
+#      - run:
+#         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this. 
+#         command: sudo chmod +x ./gradlew
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
       - save_cache:
           paths:
-            - ~/Login\ Prodivder/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
-
-      # run tests!
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          name: run tests
-          command: |
-            pwd
-            cd Login\ Provider
-            pwd
-            gradle test
+          name: Run Tests
+          command: ./gradlew lint test
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_test_results:
+          path: app/build/test-results
