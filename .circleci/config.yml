@@ -27,6 +27,7 @@ jobs:
           name: List directories
           command: |
               ls -latr
+              cd Login\ Provider/
               
       # Download and cache dependencies
       - restore_cache:
