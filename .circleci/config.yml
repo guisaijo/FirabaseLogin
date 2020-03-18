@@ -26,7 +26,8 @@ jobs:
       - run:
           name: List directories
           command: |
-          - ls -latr
+              ls -latr
+              
       # Download and cache dependencies
       - restore_cache:
           keys:
