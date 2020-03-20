@@ -21,7 +21,7 @@ spec:
                 checkout scm
             } 
         }
-        stage("test") { steps { container('android') { sh 'ls' } } }
-        stage("build") { steps { container('android') { sh 'echo build' } } }
+        stage("test") { steps { container('android') { echo 'ls' } } }
+        stage("build") { steps { container('android') { echo 'echo build' } } }
     }
 }
