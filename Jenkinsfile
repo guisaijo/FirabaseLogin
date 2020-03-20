@@ -16,14 +16,14 @@ spec:
     }
 
     stages {
-        stage("checkout") {
+        stage('checkout') {
             steps { 
                 container('android') {
                     checkout scm
                 }
             } 
         }
-        stage("test") { steps { container('android') { echo 'ls' } } }
-        stage("build") { steps { container('android') { echo 'echo build' } } }
+        stage('test') { steps { container('android') { echo 'ls' } } }
+        stage('build') { steps { container('android') { echo 'build' } } }
     }
 }
