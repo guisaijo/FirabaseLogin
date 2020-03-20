@@ -16,11 +16,11 @@ spec:
     }
 
     stages {
-	      stage("checkout") {
-		        steps container('android') {
+        stage("checkout") {
+            steps container('android') {
                 checkout scm
             } 
-	      }
+        }
         stage("test") { steps { container('android') { sh 'ls' } } }
         stage("build") { steps { container('android') { sh 'echo build' } } }
     }
