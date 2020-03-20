@@ -4,37 +4,66 @@
 #
 version: 2
 jobs:
-  build:
+  test:
     docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
+      - image: circleci/android:api-25-alpha
+      
     working_directory: ~/repo
-
+    
     environment:
-      # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
       TERM: dumb
-
+    
     steps:
       - checkout
+      
+      - run:
+          name: Acceptance of license agreements
+          command: yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses || if [ $? -ne '141' ]; then exit $?; fi;
+      
+      - run:
+         name: run tests
+         command: ./gradlew test
+      
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+
+  build:
+    docker:
+      - image: circleci/android:api-25-alpha
+    
+    working_directory: ~/repo
+    
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+    
+    steps:
+      - checkout 
+
+      - run:
+          name: Acceptance of license agreements
+          command: yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses || if [ $? -ne '141' ]; then exit $?; fi;
+
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "build.gradle" }}
-#      - run:
-#         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this. 
-#         command: sudo chmod +x ./gradlew
+          
       - save_cache:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+        
       - run:
           name: run build
           command: ./gradlew build
+          
       - store_artifacts:
-          path: app/build/reports
-          destination: reports
+          path: app/build/outputs/apk/release
+          
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
+      - build
