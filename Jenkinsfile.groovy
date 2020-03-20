@@ -25,7 +25,5 @@ spec:
                 }
             } 
         }
-        stage('test') { steps { container('android') { sh 'ls' } } }
-        stage('build') { steps { container('android') { sh 'echo build' } } }
     }
 }
