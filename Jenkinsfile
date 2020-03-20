@@ -1,5 +1,3 @@
-#!groovy
-
 pipeline {
     agent {
         kubernetes {
@@ -21,7 +19,7 @@ spec:
         stage('checkout') {
             steps { 
                 container('android') {
-                    sh 'echo checkout'
+                    echo 'checkout'
                 }
             } 
         }
