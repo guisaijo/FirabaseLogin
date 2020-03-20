@@ -17,8 +17,10 @@ spec:
 
     stages {
         stage("checkout") {
-            steps container('android') {
-                checkout scm
+            steps { 
+                container('android') {
+                    checkout scm
+                }
             } 
         }
         stage("test") { steps { container('android') { echo 'ls' } } }
