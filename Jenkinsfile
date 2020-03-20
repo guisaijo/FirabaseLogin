@@ -19,11 +19,11 @@ spec:
         stage('checkout') {
             steps { 
                 container('android') {
-                    checkout scm
+                    sh 'echo checkout'
                 }
             } 
         }
-        stage('test') { steps { container('android') { echo 'ls' } } }
-        stage('build') { steps { container('android') { echo 'build' } } }
+        stage('test') { steps { container('android') { sh 'ls' } } }
+        stage('build') { steps { container('android') { sh 'echo build' } } }
     }
 }
