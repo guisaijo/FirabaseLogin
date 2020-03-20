@@ -5,12 +5,12 @@ pipeline {
             yaml """
 kind: Pod
 metadata:
-    name: jenkins-slave
+  name: jenkins-slave
 spec:
-    containers:
-    - name: android
-        image: thyrlian/android-sdk:latest
-        imagePullPolicy: Always
+  containers:
+  - name: android
+    image: thyrlian/android-sdk:latest
+    imagePullPolicy: Always
 """
         }
     }
