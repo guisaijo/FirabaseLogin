@@ -2,9 +2,15 @@ steps:
   - name: 'gcr.io/$PROJECT_ID/android:28'
     id: clean
     args: ["for_branch", "master", "./gradlew", "clean"]
+    env:
+    - 'BRANCH_NAME=$BRANCH_NAME'
   - name: 'gcr.io/$PROJECT_ID/android:28'
     id: test
     args: ["for_branch", "master", "./gradlew", "test"]
+    env:
+    - 'BRANCH_NAME=$BRANCH_NAME'
   - name: 'gcr.io/$PROJECT_ID/android:28'
     id: assemble
     args: ["for_branch", "master", "./gradlew", "assemble"]
+    env:
+    - 'BRANCH_NAME=$BRANCH_NAME'
