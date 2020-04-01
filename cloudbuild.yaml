@@ -1,16 +1,10 @@
 steps:
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args: [ '-c', 'ls -la']
-  - name: gradle:5.4.1-jdk8
-    entrypoint: gradle
-    args: ["clean"]
-  - name: gradle:5.4.1-jdk8
-    entrypoint: gradle
-    args: ["build"]
-  - name: gradle:5.4.1-jdk8
-    entrypoint: gradle
-    args: ["test"]
-  - name: gradle:5.4.1-jdk8
-    entrypoint: gradle
-    args: ["assemble"]
+  - name: 'gcr.io/$PROJECT_ID/android:28'
+    id: clean
+    args: ["for_branch", "(master)", "./gradlew", "clean"]
+  - name: 'gcr.io/$PROJECT_ID/android:28'
+    id: test
+    args: ["for_branch", "(master)", "./gradlew", "test"]
+  - name: 'gcr.io/$PROJECT_ID/android:28'
+    id: assemble
+    args: ["for_branch", "(master)", "./gradlew", "assemble"]
