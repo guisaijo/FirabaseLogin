@@ -1,6 +1,6 @@
 steps:
   - name: 'ubuntu'
-    args: ['bash', 'ls']
+    args: ['-c', 'ls']
   - name: gradle:5.6.2-jdk8
     entrypoint: gradle
     args: ["test"]
