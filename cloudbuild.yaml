@@ -4,6 +4,12 @@ steps:
     args: [ '-c', 'ls -la']
   - name: gradle:5.4.1-jdk8
     entrypoint: gradle
+    args: ["clean"]
+  - name: gradle:5.4.1-jdk8
+    entrypoint: gradle
+    args: ["build"]
+  - name: gradle:5.4.1-jdk8
+    entrypoint: gradle
     args: ["test"]
   - name: gradle:5.4.1-jdk8
     entrypoint: gradle
